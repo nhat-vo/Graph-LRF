@@ -42,7 +42,7 @@ def main():
         pin_memory=True,
         random_transform=False,
         use_pos=False,
-        use_shot=False,
+        use_shot=True,
         use_rops=False,
     )
 
