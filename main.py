@@ -81,7 +81,9 @@ def main():
     if args.profiler == "none":
         args.profiler = None
 
-    exp_name = f"{args.model}_{args.lrf}_{args.task}_k={args.n_neighbors}"
+    task = f"qm9_{args.label}"
+
+    exp_name = f"{args.model}_{args.lrf}_{task}_k={args.n_neighbors}"
     logger = TensorBoardLogger(save_dir=TRAIN_PATH, name=exp_name)
 
     early_stopping = EarlyStopping("val_loss", patience=5, mode="min")

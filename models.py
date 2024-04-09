@@ -5,13 +5,14 @@ from torch.nn import functional as F
 import torch_geometric.nn as gnn
 
 
-class GCN(torch.nn.Module):
-    def __init__(self, input_dim, hidden_dim, output_dim, dropout=0, skip=0):
+class GCN(nn.Module):
+    def __init__(self, input_dim, hidden_dims, output_dim, dropout=0, skip=0):
         super().__init__()
         self.gconvs = torch.nn.ModuleList()
-        dims = [input_dim] + hidden_dim
+        dims = [input_dim] + hidden_dims
         for i in range(1, len(dims)):
             self.gconvs.append(gnn.GCNConv(dims[i - 1], dims[i]))
+
         self.logit = nn.Linear(dims[-1], output_dim)
         self.dropout = dropout
         self.skip = skip
@@ -31,13 +32,14 @@ class GCN(torch.nn.Module):
         return x
 
 
-class GAT(torch.nn.Module):
-    def __init__(self, input_dim, hidden_dim, output_dim, dropout=0, skip=0):
+class GAT(nn.Module):
+    def __init__(self, input_dim, hidden_dims, output_dim, dropout=0, skip=0):
         super().__init__()
         self.gconvs = torch.nn.ModuleList()
-        dims = [input_dim] + hidden_dim
+        dims = [input_dim] + hidden_dims
         for i in range(1, len(dims)):
             self.gconvs.append(gnn.GATv2Conv(dims[i - 1], dims[i]))
+
         self.logit = nn.Linear(dims[-1], output_dim)
         self.dropout = dropout
         self.skip = skip
